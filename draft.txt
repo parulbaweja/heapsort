@@ -1,0 +1,36 @@
+Heapsort
+
+What is a heap?
+A heap is an array, visualized as a binary tree. Heaps tend to have the following methods: insert, pop/delete, and lookup/peek. All levels of the binary tree must be filled from left to right. We can either implement a min or a max heap. For this article, we'll create a max heap, in which every root is greater than its children. Take a look at the following example:
+
+[10, 6, 8, 3, 2, 1]
+
+For each parent, we can find its children at the following indices:
+    left - 2i + 1
+    right - 2 i + 2
+
+So, for lst[0] = 10, the children are:
+    left - 2(0) + 1 = 1 --> lst[1] = 6
+    right - 2(0) + 2 = 2 --> lst[2] = 8
+
+Why use heaps for sorting?
+Heaps always follow a particular ordering (the max is the root in this case). So, by taking advantage of this property, we can 'pop' off the max of the heap repeatedly and establish a sorted array.
+
+Heapsort Steps
+1. Create a max heap from the unsorted list.
+2. Swap the max element, located at the root, with the last element.
+3. The new root is likely not in its correct place. We heapify the array again to establish the max heap order.
+4. Repeat step 2.
+
+Step 1: Heapify a list
+We start looking at nodes from the second to last level or depth of nodes in the tree. The start index is n / 2 - the middle of the array.
+
+Then, we compare each node to its children: if it's less than the max child, we swap. Otherwise, we decrement the current index and repeat. Take a look at the gif below:
+
+In this example, we must recurse to rebalance the root, 3, until it finds its correct place.
+
+Analysis: by starting at index n / 2, heapify-ing a list in-place is O(n).
+
+Steps 2 and 3: Swap the max element and rebalance.
+In particular, take care to determine whether the children are out of bounds when rebalancing. In a list with even elements, one element will only have a left child. The calculated right child index will surpass the end of the list, which demonstrates the concept of being out of bounds. In this case, we only want to check the left child, not the right
+
